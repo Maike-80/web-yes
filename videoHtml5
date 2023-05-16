@@ -1,0 +1,73 @@
+<!-- Это блок для воспроизведения видео -->
+<div class="video_zero_block1"> <!-- меняем номер для каждого нового видео. Номера (название) не должны совпадать нигде на странице -->
+  <div>
+    <video preload="auto" class="video_source_block" playsinline loop muted id="video1"> <!-- Присваиваем нашему видео класс id="video1".  "video_source_block" - этот не трогаем -->
+      <source src="https://dl.dropboxusercontent.com/s/hrnzxlfgcqtkokx/%D0%9A%D0%B0%D0%BF%D1%81%D1%83%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%80%D0%B0%D1%89%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20360%20%D0%BD%D0%B0%20480.mp4?dl=0">  <!-- видео с google drive -->
+    </video>
+  </div>
+</div>
+
+<img class="image1"> <!-- Присваеваем картинки в свойствах класс. По нажатию на неё будет воспроизводиться видео -->
+<img class="image3"> <!-- Это дополнительная картинка. Она тоже скрывается при воспроизведении видео. Можно удалить если нет необходимости во второй картинке -->
+
+<style>
+ 
+.video_zero_block1 {                   /* Меняем цифру 1 на свою, которую присвоили выше */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 550px;
+  overflow: hidden;
+}
+
+.video_zero_block1 video {            /* Меняем цифру 1 на свою, которую присвоили выше. "video"  не трогаем */
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0px;
+  }
+
+@media screen and (max-width: 600px) {    /* это для мобильной версии размеры видео */
+  .video_zero_block1 {                   /* Меняем цифру 1 на свою, которую присвоили выше */
+    height: 250px;
+  }
+  
+  .video_zero_block1 video {             /* Меняем цифру 1 на свою, которую присвоили выше. "video"  не трогаем */
+    transform: none;
+  }
+}
+
+</style>
+
+<script>
+  var video1 = document.getElementById("video1");      // добавляем переменную video2 из класса котрый мы назначили нашему видео выше "video1"
+  var image1 = document.querySelector(".image1");      // добавляем переменную image2 из класса котрый мы назначили нашей картинке выше ".image1"
+  var image3 = document.querySelector(".image3");      // добавляем переменную image4 из класса котрый мы назначили нашей картинке выше ".image3" Можно удалить если не использум доп картинку
+
+  
+  function togglePlay() {                              // скрипт, который будет обрабатывать нажатие на видео. В этом примере переменная video1, ссылается на видео элемент с идентификатором "video1". Функция togglePlay проверяет, находится ли видео в режиме паузы, и в зависимости от этого воспроизводит или ставит на паузу видео
+    if (video1.paused)                                 
+      video1.play();
+    else
+      video1.pause();
+  }
+
+  function hideImage() {                                 // добавляем функцию которая будет выполнять скрытие картинок с классами image1 image3 
+    image1.style.display = "none";
+    image3.style.display = "none";
+  }
+  
+  function showImage() {                                 // добавляем функцию которая будет выполнять показ картинок с классами image1 image3 
+    image1.style.display = "block";
+    image3.style.display = "block";
+  }
+
+  video1.addEventListener('click', togglePlay);        // добавляем слушатель событий клика на видео элемент, который вызывает функцию togglePlay при каждом клике на видео. Теперь, когда кликаем на видео, оно переключается между режимами воспроизведения и паузы.
+  image1.addEventListener('click', togglePlay);        // добавили слушатель событий click для этой картинки, который вызывает функцию togglePlay при каждом клике на картинку. Воспроизводит видео по нажатию на картинку с классом image2
+  video1.addEventListener('play', hideImage);          // Чтобы скрыть картинки надо выполнить функцию hideImage при воспроизведения видео
+  video1.addEventListener('pause', showImage);         // Чтобы показать картинки надо выполнить функцию showImage при паузе видео
+  
+</script>
